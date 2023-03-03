@@ -21,7 +21,15 @@ if [ -f "$file" ]; then
     mv "$file" "$backup_file"
 fi
 cp ./logstash/manager.sls "$file"
-    
+
+# Modify Logstash search.sls to include the Sublime Elasticsearch output
+file="/opt/so/saltstack/local/pillar/logstash/search.sls"
+backup_file="/root/logstash.search.sls.bak"
+if [ -f "$file" ]; then
+    # Backup file before replacing
+    mv "$file" "$backup_file"
+fi
+cp ./logstash/search.sls "$file"    
 
 # Restart Logstash
 so-logstash-restart
