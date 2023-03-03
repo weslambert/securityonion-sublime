@@ -51,7 +51,7 @@ firewall:
 EOF
 so-firewall addhostgroup sublime
 so-firewall addportgroup sublime 
-so-firewall includehost sublime $sublime_server 
+so-firewall includehost sublime "$sublime_server" 
 so-firewall addport sublime tcp 8228
 
 # Edit minion pillar to include Sublime firewall config
