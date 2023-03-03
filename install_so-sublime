@@ -1,0 +1,60 @@
+# Copy Sublime Logstash input into place
+cp securityonion-sublime/logstash/0001_input_sublime.conf /opt/so/salstack/local/salt/logstash/pipelines/config/so/
+
+# Copy Sublime Logstash output into place
+cp securityonion-sublime/logstash/9888_output_sublime.conf /opt/so/salstack/local/salt/logstash/pipelines/config/so/
+
+# Modify Logstash init.sls to include port bindings
+file="/opt/so/saltstack/local/pillar/logstash/init.sls"
+backup_file="/root/logstash.init.sls.bak"
+if [ -f "$file" ]; then
+    # Backup file before replacing
+    mv "$file" "$backup_file"
+fi
+cp securityonion-sublime/logstash/init.sls "$file"
+
+# Restart Logstash
+so-logstash-Restart
+
+# Copy Elasticsearch ingest pipeline into place
+cp securityonion-sublime/elasticsearch/sublime /opt/so/saltstack/local/salt/elasticearch/files/ingest/
+
+# Restart Elasticsearch
+so-elasticsearch-restart
+
+# Request Sublime server IP
+echo "Please enter an IP for the Sublime server"
+read sublime_server
+
+# Copy Sublime SOC action into place
+file="/opt/so/saltstack/local/salt/soc/files/soc/menu.actions.json"
+backup_file="/root/menu.actions.json.bak"
+if [ -f "$file" ]; then
+    # Backup file before replacing
+    mv "$file" "$backup_file"
+fi
+cp securityonion-sublime/soc/menu.actions.json "$file"
+
+# Restart SOC
+so-soc-restart
+
+# Modify firewall to create new host and port group, then apply configuration
+so-firewall addhostgroup sublime
+so-firewall addportgroup sublime 
+so-firewall includehost sublime $sublime_server 
+so-firewall addport sublime tcp 8228
+
+# Edit minion pillar to include Sublime firewall config
+#cat << EOF >> /opt/so/saltstack/local/pillar/minions/*.sls
+#firewall:
+#  assigned_hostgroups:
+#    chain:
+#      DOCKER-USER:
+#        hostgroups:
+#          sublime:
+#            portgroups:
+#              - portgroups.sublime
+#EOF
+salt-call state.apply firewall -l info
+
+echo "Configuration complete!"

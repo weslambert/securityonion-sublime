@@ -1,0 +1,14 @@
+{
+  "description" : "Email alerts from Sublime",
+  "processors" : [
+    { "set":         { "field": "event.module",        "value": "sublime"  } },
+    { "set":         { "field": "event.dataset",        "value": "alert"  } },
+    { "set":         { "field": "event.severity", "value": 3, "override": true }  },
+    { "set":         { "field": "rule.name", "value": "Sublime Email Rule Triggered: {{ data.flagged_rules.0.name }}", "override": true }  },
+    { "rename":      { "field": "data",                 "target_field": "sublime", "ignore_missing": true } },
+    { "rename":      { "field": "host",                 "target_field": "sublime.host", "ignore_missing": true } },
+    { "remove":      { "field": "headers" } },
+    { "pipeline":    { "name": "common"                 } }
+  ]
+}
+
