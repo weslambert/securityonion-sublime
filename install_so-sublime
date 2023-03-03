@@ -1,8 +1,8 @@
 # Copy Sublime Logstash input into place
-cp securityonion-sublime/logstash/0001_input_sublime.conf /opt/so/salstack/local/salt/logstash/pipelines/config/so/
+cp ./logstash/0001_input_sublime.conf /opt/so/saltstack/local/salt/logstash/pipelines/config/so/
 
 # Copy Sublime Logstash output into place
-cp securityonion-sublime/logstash/9888_output_sublime.conf /opt/so/saltstack/local/salt/logstash/pipelines/config/so/
+cp ./logstash/9888_output_sublime.conf.jinja /opt/so/saltstack/local/salt/logstash/pipelines/config/so/
 
 # Modify Logstash init.sls to include port bindings
 file="/opt/so/saltstack/local/pillar/logstash/init.sls"
@@ -17,7 +17,7 @@ cp securityonion-sublime/logstash/init.sls "$file"
 so-logstash-restart
 
 # Copy Elasticsearch ingest pipeline into place
-cp securityonion-sublime/elasticsearch/sublime /opt/so/saltstack/local/salt/elasticearch/files/ingest/
+cp ./elasticsearch/sublime /opt/so/saltstack/local/salt/elasticearch/files/ingest/
 
 # Restart Elasticsearch
 so-elasticsearch-restart
@@ -33,7 +33,7 @@ if [ -f "$file" ]; then
     # Backup file before replacing
     mv "$file" "$backup_file"
 fi
-cp securityonion-sublime/soc/menu.actions.json "$file"
+cp ./soc/menu.actions.json "$file"
 
 # Restart SOC
 so-soc-restart
