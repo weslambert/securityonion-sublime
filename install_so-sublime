@@ -13,6 +13,16 @@ if [ -f "$file" ]; then
 fi
 cp ./logstash/init.sls "$file"
 
+# Modify Logstash manager.sls to include the Sublime HTTP input
+file="/opt/so/saltstack/local/pillar/logstash/manager.sls"
+backup_file="/root/logstash.manager.sls.bak"
+if [ -f "$file" ]; then
+    # Backup file before replacing
+    mv "$file" "$backup_file"
+fi
+cp ./logstash/manager.sls "$file"
+    
+
 # Restart Logstash
 so-logstash-restart
 
@@ -51,11 +61,13 @@ firewall:
               - portgroups.sublime
 EOF
 done
+
+# Create firewall configuration for Sublime
 so-firewall addhostgroup sublime
 so-firewall addportgroup sublime
-so-firewall includehost sublime $sublime_server
 so-firewall addport sublime tcp 8228
-
+so-firewall includehost 127.0.0.1
+so-firewall includehost sublime $sublime_server
 salt-call state.apply firewall -l info
 
 echo "Configuration complete!"
