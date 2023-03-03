@@ -17,7 +17,7 @@ cp ./logstash/init.sls "$file"
 so-logstash-restart
 
 # Copy Elasticsearch ingest pipeline into place
-cp ./elasticsearch/sublime /opt/so/saltstack/local/salt/elasticearch/files/ingest/
+cp ./elasticsearch/sublime /opt/so/saltstack/local/salt/elasticsearch/files/ingest/
 
 # Restart Elasticsearch
 so-elasticsearch-restart
