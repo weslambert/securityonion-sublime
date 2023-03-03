@@ -35,7 +35,7 @@
   { "name": "Sublime Email Lookup", "description": "Sublime email lookup", "icon": "fa-external-link-alt", "target": "_blank",
 	    "links": [
 		    "http://{:sublime.host}:3000/messages/{:sublime.message.canonical_id}"
-	    ]},
+	    ]}
  {%- if ENDGAMEHOST %}
    ,{ "name": "Endgame", "description": "Endgame Endpoint Investigation and Response", "icon": "fa-external-link-alt", "target": "_blank",
             "links": [
