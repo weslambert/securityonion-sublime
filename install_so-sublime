@@ -11,7 +11,7 @@ if [ -f "$file" ]; then
     # Backup file before replacing
     mv "$file" "$backup_file"
 fi
-cp securityonion-sublime/logstash/init.sls "$file"
+cp ./logstash/init.sls "$file"
 
 # Restart Logstash
 so-logstash-restart
