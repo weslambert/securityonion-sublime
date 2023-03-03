@@ -39,6 +39,16 @@ cp ./soc/menu.actions.json "$file"
 so-soc-restart
 
 # Modify firewall to create new host and port group, then apply configuration
+cat << EOF >> /opt/so/saltstack/local/pillar/minions/*.sls
+firewall:
+  assigned_hostgroups:
+    chain:
+      DOCKER-USER:
+        hostgroups:
+          sublime:
+            portgroups:
+              - portgroups.sublime
+EOF
 so-firewall addhostgroup sublime
 so-firewall addportgroup sublime 
 so-firewall includehost sublime $sublime_server 
