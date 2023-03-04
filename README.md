@@ -13,10 +13,10 @@ In addition to the data pipeline, a [SOC action](https://docs.securityonion.net/
 
 ### NOTE: This script should be run on a manager or standalone Security Onion node.
 
-#### Requirements:
+#### Requirements
  - Externally managed Sublime server with a webhook action configured to point to http://$securityonion:8228
 
-#### Install:
+#### Install
 
 `git clone https://github.com/weslambert/securityonion-sublime && cd securityonion-sublime && sudo ./install_so-sublime`
 
