@@ -2,6 +2,8 @@
 ## Ingest Sublime Security email alerts into Security Onion
 
 ![image](https://user-images.githubusercontent.com/16829864/222842071-4f277c26-2ad7-4344-a9e8-a948c65910fa.png)
+![image](https://user-images.githubusercontent.com/16829864/223286167-e61dcad7-76da-48d7-8847-9eb32a8a9623.png)
+![image](https://user-images.githubusercontent.com/16829864/223286188-18a978c4-7571-40dd-91bd-0a2b6a47eeb7.png)
 
 ### NOTE: This script is NOT an officially supported Security Onion integration, and is not intended for production use. It is an example of how you can set up similar configuration in your environment. 
 
