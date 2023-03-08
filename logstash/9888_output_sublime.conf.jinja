@@ -10,7 +10,7 @@ output {
     elasticsearch {
       pipeline => "sublime"
       hosts => "{{ ES }}"
-      index => "so-sublime"
+      index => "so-sublime-%{+YYYY.MM.dd}"
 {% if salt['pillar.get']('elasticsearch:auth:enabled') is sameas true %}
       user => "{{ ES_USER }}"
       password => "{{ ES_PASS }}"
