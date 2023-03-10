@@ -1,5 +1,4 @@
 # securityonion-sublime
-## Ingest Sublime Security email alerts into Security Onion
 
 #### Triage Sublime email alerts inside of Security Onion
 ![image](https://user-images.githubusercontent.com/16829864/222842071-4f277c26-2ad7-4344-a9e8-a948c65910fa.png)
