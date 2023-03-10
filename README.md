@@ -1,9 +1,20 @@
 # securityonion-sublime
 ## Ingest Sublime Security email alerts into Security Onion
 
+#### Triage Sublime email alerts inside of Security Onion
 ![image](https://user-images.githubusercontent.com/16829864/222842071-4f277c26-2ad7-4344-a9e8-a948c65910fa.png)
+
+#### Pivot to Sublime for further investigation
 ![image](https://user-images.githubusercontent.com/16829864/223286167-e61dcad7-76da-48d7-8847-9eb32a8a9623.png)
+
+#### Perform in-depth review of email that generated alert 
 ![image](https://user-images.githubusercontent.com/16829864/223286188-18a978c4-7571-40dd-91bd-0a2b6a47eeb7.png)
+
+#### Submit an email to Sublime for analysis from an observable in SOC Cases using the Sublime SOC analyzer
+![image](https://user-images.githubusercontent.com/16829864/224206024-b752b039-028a-4df8-bbb2-86817ea4ec14.png)
+![image](https://user-images.githubusercontent.com/16829864/224206048-5f65bbd7-9e0b-457e-a5ab-75d4ae389057.png)
+
+
 
 ### NOTE: This script is NOT an officially supported Security Onion integration, and is not intended for production use. It is an example of how you can set up similar configuration in your environment. 
 
