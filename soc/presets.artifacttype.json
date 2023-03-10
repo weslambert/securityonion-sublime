@@ -1,0 +1,21 @@
+{
+  "labels": [
+    "autonomous-system",
+    "domain",
+    "file",
+    "filename",
+    "fqdn",
+    "hash",
+    "ip",
+    "eml",
+    "mail",
+    "mail_subject",
+    "other",
+    "regexp",
+    "registry",
+    "uri_path",
+    "url",
+    "user-agent"
+  ],
+  "customEnabled": true
+}
