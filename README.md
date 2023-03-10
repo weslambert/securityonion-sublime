@@ -13,6 +13,25 @@ This script will set up the necessary components to ingest [Sublime Security](ht
 
 In addition to the data pipeline, a [SOC action](https://docs.securityonion.net/en/2.3/soc-customization.html#action-menu) is also pre-configured with the provided Sublime server IP address, to allow pivoting from a Sublime Security alert to the referenced email for analysis within the Sublime platform. The address used for pivoting can be changed as desired after installation, if necessary.
 
+Last, an Sublime analyzer is configured, allowing analysts to paste the base64 content of an EML as the value of an observable, and provided the type of `eml` is chosen, the Sublime analyzer will submit a request to a local or remotely configured Sublime server.
+
+To configure the analyzer, the following details should be provided in the sensoroni section of the minion pillar:
+
+```
+sensoroni:
+  analyzers:
+    api_key: $api_key
+    base_url: $if-this-is-a-local-instance
+```
+
+After the configuration details are provided, `sensoroni` can be restarted with the following commands:
+
+```
+sudo docker stop so-sensoroni
+sudo docker rm so-sensoroni
+sudo salt-call state.apply sensoroni queue=True
+```
+
 ### NOTE: This script should be run on a manager or standalone Security Onion node.
 
 #### Requirements
