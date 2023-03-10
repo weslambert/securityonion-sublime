@@ -53,8 +53,20 @@ if [ -f "$file" ]; then
 fi
 cp ./soc/menu.actions.json "$file"
 
+# Copy SOC artifact type presets into place
+file="/opt/so/saltstack/local/salt/soc/files/soc/presets.artfacttype.json"
+backup_file="/root/presets.artifacttype.json.bak"
+if [ -f "$file" ]; then
+    # Backup file before replacing
+    mv "$file" "$backup_file"
+fi
+cp ./soc/presets.artifacttype.json "$file"
+
 # Restart SOC
 so-soc-restart
+
+# Copy Sublime analyzer into place
+cp -av ./sensoroni/files/analyzers/sublime /opt/so/saltstack/local/salt/sensoroni/files/analyzers/
 
 # Modify firewall to create new host and port group, then apply configuration
 for i in $(sudo ls /opt/so/saltstack/local/pillar/minions/ | grep -E 'eval|manager|standalone'); do
