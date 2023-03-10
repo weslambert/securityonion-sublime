@@ -15,6 +15,21 @@ In addition to the data pipeline, a [SOC action](https://docs.securityonion.net/
 
 Last, an Sublime analyzer is configured, allowing analysts to paste the base64 content of an EML as the value of an observable, and provided the type of `eml` is chosen, the Sublime analyzer will submit a request to a local or remotely configured Sublime server.
 
+### NOTE: This script should be run on a manager or standalone Security Onion node.
+
+#### Requirements
+ - Externally managed Sublime server with a webhook action configured to point to `http://$securityonion:8228`.
+
+#### Install
+
+`git clone https://github.com/weslambert/securityonion-sublime && cd securityonion-sublime && sudo ./install_so-sublime`
+
+#### Post-Install
+If running a distributed deployment, run the command below after script completion, or wait 15 minutes for Salt to replicate changes to downstream nodes.
+
+`sudo salt "*" state.highstate`
+
+##### Configure the analyzer
 To configure the analyzer, the following details should be provided in the sensoroni section of the minion pillar:
 
 ```
@@ -31,18 +46,4 @@ sudo docker stop so-sensoroni
 sudo docker rm so-sensoroni
 sudo salt-call state.apply sensoroni queue=True
 ```
-
-### NOTE: This script should be run on a manager or standalone Security Onion node.
-
-#### Requirements
- - Externally managed Sublime server with a webhook action configured to point to `http://$securityonion:8228`.
-
-#### Install
-
-`git clone https://github.com/weslambert/securityonion-sublime && cd securityonion-sublime && sudo ./install_so-sublime`
-
-#### Post-Install
-If running a distributed deployment, run the command below after script completion, or wait 15 minutes for Salt to replicate changes to downstream nodes.
-
-`sudo salt "*" state.highstate`
 
