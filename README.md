@@ -28,6 +28,7 @@ Last, an Sublime analyzer is configured, allowing analysts to paste the base64 c
 ### NOTE: This script should be run on a manager or standalone Security Onion node.
 
 #### Requirements
+ - Security Onion up and running (https://docs.securityonion.net/en/2.3/getting-started.html)
  - Externally managed Sublime server with a webhook action configured to point to `http://$securityonion:8228`.
 
 #### Install
