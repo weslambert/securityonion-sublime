@@ -45,8 +45,9 @@ To configure the analyzer, the following details should be provided in the senso
 ```
 sensoroni:
   analyzers:
-    api_key: $api_key
-    base_url: $if-this-is-a-local-instance # If you are not using a local Sublime instance, this should not be configured. 
+    sublime:
+      api_key: $api_key
+      base_url: $if-this-is-a-local-instance # If you are not using a local Sublime instance, this should not be configured. 
 ```
 
 After the configuration details are provided, `sensoroni` can be restarted with the following commands:
