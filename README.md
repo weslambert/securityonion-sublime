@@ -29,7 +29,7 @@ Last, an Sublime analyzer is configured, allowing analysts to paste the base64 c
 
 #### Requirements
  - Security Onion up and running (https://docs.securityonion.net/en/2.3/getting-started.html)
- - Externally managed Sublime server with a webhook action configured to point to `http://$securityonion:8228`.
+ - Externally managed Sublime server with a webhook action configured to point to `http://$securityonion:8228` (https://docs.sublimesecurity.com/docs/installation). Configuration of certificates is outside of the scope of this integration as it is simply demonstrational, but the webhook address can easily be adjusted if TLS is configured. 
 
 #### Install
 
