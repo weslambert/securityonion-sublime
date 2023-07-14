@@ -1,4 +1,4 @@
-base_url: "{{ salt['pillar.get']('sensoroni:analyzers:sublime:base_url', 'https://api.sublimesecurity.com') }}"
+base_url: "{{ salt['pillar.get']('sensoroni:analyzers:sublime:base_url', 'https://api.platform.sublimesecurity.com') }}"
 api_key: "{{ salt['pillar.get']('sensoroni:analyzers:sublime:api_key', '') }}"
 live_flow: {{ salt['pillar.get']('sensoroni:analyzers:sublime:live_flow', 'False') }}
 mailbox_email_address: "{{ salt['pillar.get']('sensoroni:analyzers:sublime:mailbox_email_address', 'securityonion@analysis.local') }}"
