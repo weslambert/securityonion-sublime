@@ -54,7 +54,7 @@ fi
 cp ./soc/menu.actions.json "$file"
 
 # Copy SOC artifact type presets into place
-file="/opt/so/saltstack/local/salt/soc/files/soc/presets.artfacttype.json"
+file="/opt/so/saltstack/local/salt/soc/files/soc/presets.artifacttype.json"
 backup_file="/root/presets.artifacttype.json.bak"
 if [ -f "$file" ]; then
     # Backup file before replacing
