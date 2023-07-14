@@ -1,3 +1,72 @@
+# Function to prompt for yes or no
+prompt_yes_no() {
+  while true; do
+    read -rp "$1 [y/n]: " yn
+    case $yn in
+      [Yy]* ) return 0;;  # Return 0 for "yes" response
+      [Nn]* ) return 1;;  # Return 1 for "no" response
+      * ) echo "Please answer y or n.";;
+    esac
+  done
+}
+
+# Ask user if they would like to configure the integration
+cat << EOF
+ ____   ___       ____  _   _ ____  _     ___ __  __ _____
+/ ___| / _ \     / ___|| | | | __ )| |   |_ _|  \/  | ____|
+\___ \| | | |____\___ \| | | |  _ \| |    | || |\/| |  _|
+ ___) | |_| |_____|__) | |_| | |_) | |___ | || |  | | |___
+|____/ \___/     |____/ \___/|____/|_____|___|_|  |_|_____|
+
+
+                  .',,,'..
+               .';'......;,.
+            .'.;;.        .;.                              ...
+             '::.  .;.     .,.                        .;cllllllll:'.
+              ,'.  'M'                             .:ll:,..   ..':llc.
+                   .dKkdol:'.                    .cll,    .....    'clc'
+          .;oOKXNXKOd:'',cdKWXo.               .cll,   .:lllclllc'   'clc.
+        ,OWMKdc;,;:lxXM0c.  .cXWx.             .cll'   .c,     .cll'   .clc'
+      .xMWx'      ..  'xWX,   .oMN,        .:'   .cll,     .;'   .cll'   'cll'
+      xMN,     ,xNNMo   ,NW'    lMW.       .:ll,   .:ll,   .,'     .cll,   .:'
+     .MMc     oMO. xW    lMx     NMo         .:ll,   .:ll,.    'c,   .cll,
+     .MM;    .MN   .k    cMk     XMx           .:ll;   .:lllllll:.   'llc.
+      xMk    .WM,       ;NW,    ;MM'             .:ll;.   .....    'llc.
+      .kMk.   ;WMx:'';oKMX,    cWMl                .;llc,.......,:ll:.
+        cNWd'  .ckKXXXOd,   .:KMK,                    .;clllllllc;'.
+         .c0MXdc,.    .',coOWWk:
+            .cdOXWWWNWMNXOxl;.
+                  .....
+
+
+This script will install an integration between Security Onion and Sublime Platform.
+
+The integration is not fully supported and should be used at your own risk.
+EOF
+echo
+
+if prompt_yes_no "Would you like to continue?"; then
+  :
+else
+  echo "User chose not to continue. Exiting..."
+  exit 0
+fi
+
+# Is user using a local Sublime Platform server?
+if prompt_yes_no "Are you using a local Sublime Platform server?"; then
+  # Request Sublime server address
+  echo "Please enter an address for the Sublime Platform server"
+  read sublime_server
+  echo "$sublime_server"
+else
+  sublime_server="https://api.platform.sublimesecurity.com"
+  echo "$sublime_server"
+fi
+
+# Request Sublime API key
+echo "Please enter an API key for Sublime Platform"
+read sublime_apikey
+
 # Copy Sublime Logstash input into place
 cp ./logstash/0001_input_sublime.conf /opt/so/saltstack/local/salt/logstash/pipelines/config/so/
 
@@ -40,10 +109,6 @@ cp ./elasticsearch/sublime /opt/so/saltstack/local/salt/elasticsearch/files/inge
 # Restart Elasticsearch
 so-elasticsearch-restart
 
-# Request Sublime server IP
-echo "Please enter an IP for the Sublime server"
-read sublime_server
-
 # Copy Sublime SOC action into place
 file="/opt/so/saltstack/local/salt/soc/files/soc/menu.actions.json"
 backup_file="/root/menu.actions.json.bak"
@@ -67,6 +132,17 @@ so-soc-restart
 
 # Copy Sublime analyzer into place
 cp -av ./sensoroni/files/analyzers/sublime /opt/so/saltstack/local/salt/sensoroni/files/analyzers/
+
+# Modify minion pillar for Sublime analyzer
+for pillar in /opt/so/saltstack/local/pillar/minions/*.sls; do
+  if ! grep -Pzo "sublime:\n\Kbase_url" "$pillar"; then
+    if ! grep -q "analyzers" "$pillar"; then
+      sed -i "/sensoroni:/a\  analyzers:\n    sublime:\n      base_url: $sublime_server\n      api_key: $sublime_apikey" "$pillar"
+    else
+      sed -i "/analyzers:/a\    sublime:\n      base_url: $sublime_server\n      api_key: $sublime_apikey" "$pillar"
+    fi
+  fi
+done
 
 # Modify firewall to create new host and port group, then apply configuration
 for i in $(sudo ls /opt/so/saltstack/local/pillar/minions/ | grep -E 'eval|manager|standalone'); do
