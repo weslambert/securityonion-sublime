@@ -24,7 +24,7 @@ This script will set up the necessary components to ingest [Sublime Security](ht
 
 In addition to the data pipeline, a [SOC action](https://docs.securityonion.net/en/2.3/soc-customization.html#action-menu) is also pre-configured with the provided Sublime server IP address, to allow pivoting from a Sublime Security alert to the referenced email for analysis within the Sublime platform. The address used for pivoting can be changed as desired after installation, if necessary.
 
-Last, an Sublime analyzer is configured, allowing analysts to paste the base64 content of an EML as the value of an observable, and provided the type of `eml` is chosen, the Sublime analyzer will submit a request to a local or remotely configured Sublime server.
+Last, a Sublime analyzer is configured, allowing analysts to paste the base64 content of an EML as the value of an observable, and provided the type of `eml` is chosen, the Sublime analyzer will submit a request to a local or remotely configured Sublime server.
 
 ### NOTE: This script should be run on a manager or standalone Security Onion node.
 
